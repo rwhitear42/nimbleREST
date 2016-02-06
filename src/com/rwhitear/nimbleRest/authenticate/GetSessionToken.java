@@ -56,13 +56,16 @@ public class GetSessionToken {
 		
 		//System.out.println("HTTP Response:\n\n" +request.getHttpResponse());
 		
-		Gson gson = new Gson();
+		//Gson gson = new Gson();
 		
-		LoginResponseJSON lrd = gson.fromJson(request.getHttpResponse(), LoginResponseJSON.class); 
+		//LoginResponseJSON lrd = gson.fromJson(request.getHttpResponse(), LoginResponseJSON.class); 
 		
 		//System.out.println("Session Token: " +lrd.getLoginData().getSession_token());
 		
-		return lrd.getLoginData().getSession_token();
+		
+		String token = new LoginResponseJSON().getSessionToken(request.getHttpResponse());
+				
+		return token;
 		
 	}
 	
