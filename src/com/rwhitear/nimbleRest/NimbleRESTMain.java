@@ -12,6 +12,7 @@ public class NimbleRESTMain {
 		
 		System.out.println("Session Token: " + new GetSessionToken("10.113.89.25", "apiuser", "C1sco123").getNewToken());
 		
+		System.out.println("Hello,world");
 	}
-
+	
 }
