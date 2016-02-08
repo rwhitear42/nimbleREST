@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.apache.commons.httpclient.HttpException;
 
-import com.google.gson.Gson;
 import com.rwhitear.nimbleRest.authenticate.json.LoginRequestJSON;
 import com.rwhitear.nimbleRest.authenticate.json.LoginResponseJSON;
 import com.rwhitear.nimbleRest.constants.NimbleRESTConstants;
@@ -44,7 +43,7 @@ public class GetSessionToken {
 		
 		request.addContentTypeHeader(HttpRequestConstants.CONTENT_TYPE_JSON);
 		
-		request.setUri("/v1/tokens");
+		request.setUri(NimbleRESTConstants.GET_SESSION_TOKEN_URI);
 		
 		request.setMethodType(HttpRequestConstants.METHOD_TYPE_POST);
 		
