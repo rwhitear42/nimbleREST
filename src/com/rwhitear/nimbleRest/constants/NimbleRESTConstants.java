@@ -1,4 +1,4 @@
-package com.rwhitear.nimbleRest.contants;
+package com.rwhitear.nimbleRest.constants;
 
 public class NimbleRESTConstants {
 	

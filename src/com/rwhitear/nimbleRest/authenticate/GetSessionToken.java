@@ -7,7 +7,7 @@ import org.apache.commons.httpclient.HttpException;
 import com.google.gson.Gson;
 import com.rwhitear.nimbleRest.authenticate.json.LoginRequestJSON;
 import com.rwhitear.nimbleRest.authenticate.json.LoginResponseJSON;
-import com.rwhitear.nimbleRest.contants.NimbleRESTConstants;
+import com.rwhitear.nimbleRest.constants.NimbleRESTConstants;
 import com.rwhitear.ucsdHttpRequest.UCSDHttpRequest;
 import com.rwhitear.ucsdHttpRequest.constants.HttpRequestConstants;
 
@@ -51,17 +51,6 @@ public class GetSessionToken {
 		request.setBodyText( new LoginRequestJSON(this.username,this.password).convertToJSON() );
 		
 		request.execute();
-		
-		//System.out.println("Status Code: " +request.getStatusCode());
-		
-		//System.out.println("HTTP Response:\n\n" +request.getHttpResponse());
-		
-		//Gson gson = new Gson();
-		
-		//LoginResponseJSON lrd = gson.fromJson(request.getHttpResponse(), LoginResponseJSON.class); 
-		
-		//System.out.println("Session Token: " +lrd.getLoginData().getSession_token());
-		
 		
 		String token = new LoginResponseJSON().getSessionToken(request.getHttpResponse());
 				

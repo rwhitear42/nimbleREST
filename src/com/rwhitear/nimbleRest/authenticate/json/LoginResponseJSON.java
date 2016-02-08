@@ -12,15 +12,12 @@ public class LoginResponseJSON {
 		
 		Gson gson = new Gson();
 		
-		LoginResponseJsonWrapper lrd = gson.fromJson(request, LoginResponseJsonWrapper.class);
+		LoginResponseJsonWrapper lrd = gson.fromJson(this.request, LoginResponseJsonWrapper.class);
 		
 		//System.out.println(lrd.getData().getSession_token());
 		
 		return lrd.getData().getSession_token();
 	}
-	
-
-
 	
 }
 
