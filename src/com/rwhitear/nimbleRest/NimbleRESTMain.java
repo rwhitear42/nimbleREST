@@ -15,12 +15,19 @@ public class NimbleRESTMain {
 		
 		String token = new GetSessionToken("10.113.89.25", "apiuser", "C1sco123").getNewToken();
 		
+		String volumeName = "Sales-Lab-Datastore1-Shared";
+		
 		System.out.println("Session Token: " + token);
 		
 		String volumeJsonData = new GetVolumes("10.113.89.25", token).getSummary();
 				
-		new GetVolumesSummaryResponse(volumeJsonData).outputJSON();
+		String volID = new GetVolumesSummaryResponse(volumeJsonData).getVolumeID(volumeName);
 
+		if( !volID.equals(null) ) {
+			
+			System.out.println("Volume ID for volume "+ volumeName +" is: " +volID);
+		}
 	}
 	
 }
+

@@ -8,7 +8,9 @@ import com.google.gson.Gson;
 public class GetVolumesSummaryResponse {
 	
 	private String jsonText;
-
+	
+	
+	// Constructors.
 	public GetVolumesSummaryResponse(String jsonText) {
 		this.jsonText = jsonText;
 	}
@@ -19,11 +21,41 @@ public class GetVolumesSummaryResponse {
 		
 		DataObject da = gson.fromJson(jsonText, DataObject.class);
 		
-		//System.out.println("data.size(): " +da.getData().get(3).getName());
-		System.out.println("data.size(): " +da.getData().get(3).getName());
+	
+		for( int i = 0; i < da.getData().size(); i++ ) {
+			
+			System.out.println("data.size("+i+"): " +da.getData().get(i).getName());
+			
+		}
 		
 		System.out.println("End Row: " +da.getEndRow());
 		
+	}
+	
+	public String getVolumeID(String volumeName) {
+		
+		String volumeID = null;
+		
+		Gson gson = new Gson();
+		
+		DataObject da = gson.fromJson(jsonText, DataObject.class);
+		
+		for( int i = 0; i < da.getData().size(); i++ ) {
+			
+			String volName = da.getData().get(i).getName();
+			
+			//System.out.println("Comparing " +volName+ " with " +volumeName);
+			
+			if( volName.equals(volumeName) ) {
+				
+				System.out.println("Found volume " +volName );
+				
+				return da.getData().get(i).getId();
+			}
+			
+		}
+		
+		return volumeID;
 	}
 }
 
