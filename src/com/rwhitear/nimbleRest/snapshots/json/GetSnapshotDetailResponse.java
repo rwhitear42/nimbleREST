@@ -20,7 +20,9 @@ public class GetSnapshotDetailResponse {
 		
 		SnapshotObject da = gson.fromJson(jsonText, SnapshotObject.class);
 		
-		System.out.println("Data Size: " +da.getData().size());
+		System.out.println("Data: " +da.getData().get(0).toString());
+		
+		System.out.println("Data Size: " +da.toString());
 		
 		for( int i = 0; i < da.getData().size(); i++ ) {
 			
@@ -30,6 +32,27 @@ public class GetSnapshotDetailResponse {
 			System.out.println("Data["+i+"] ACR Access Protocol: " +da.getData().get(0).getAccess_control_records().get(0).getAccess_protocol());
 		}
 	}
+	
+	public String getSnapshotID(String snapShotName) {
+		
+		String snapID = null;
+		
+		Gson gson = new Gson();
+		
+		SnapshotObject da = gson.fromJson(jsonText, SnapshotObject.class);
+		
+		for( int i = 0; i < da.getData().size(); i++ ) {
+			
+			if( da.getData().get(i).getName().equals(snapShotName) ) {
+				
+				return da.getData().get(i).getId();
+				
+			}
+		}
+		
+		return snapID; 
+	}
+	
 }
 
 class SnapshotObject {
@@ -74,8 +97,10 @@ class SnapshotObject {
 	
 	@Override
 	public String toString() {		
-		return 	getData() + ",\n" + getEndRow() + ",\n" +
-				getStartRow() + ",\n" + getTotalRows();
+		return 	"data: " + getData() + ",\n" + 
+				"endRow: " + getEndRow() + ",\n" +
+				"startRow: " + getStartRow() + ",\n" + 
+				"totalRows: " + getTotalRows();
 	}
 		
 }

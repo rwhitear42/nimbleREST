@@ -32,7 +32,7 @@ public class NimbleRESTMain {
 		
 		String volumeSnapshotJsonData = new GetSnapshots("10.113.89.25", token, volID).getSnapshotSummary();
 		
-		new GetSnapshotDetailResponse(volumeSnapshotJsonData).outputJSON();
+		System.out.println("Snapshot ID: " +new GetSnapshotDetailResponse(volumeSnapshotJsonData).getSnapshotID("baseline"));
 	
 		//System.out.println(volumeSnapshotJsonData);
 		
