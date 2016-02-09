@@ -48,7 +48,7 @@ public class GetVolumesSummaryResponse {
 			
 			if( volName.equals(volumeName) ) {
 				
-				System.out.println("Found volume " +volName );
+				//System.out.println("Found volume " +volName );
 				
 				return da.getData().get(i).getId();
 			}

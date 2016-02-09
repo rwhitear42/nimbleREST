@@ -5,6 +5,8 @@ import java.io.IOException;
 import org.apache.commons.httpclient.HttpException;
 
 import com.rwhitear.nimbleRest.authenticate.GetSessionToken;
+import com.rwhitear.nimbleRest.snapshots.GetSnapshots;
+import com.rwhitear.nimbleRest.snapshots.json.GetSnapshotDetailResponse;
 import com.rwhitear.nimbleRest.volumes.GetVolumes;
 import com.rwhitear.nimbleRest.volumes.json.GetVolumesSummaryResponse;
 
@@ -15,7 +17,7 @@ public class NimbleRESTMain {
 		
 		String token = new GetSessionToken("10.113.89.25", "apiuser", "C1sco123").getNewToken();
 		
-		String volumeName = "Sales-Lab-Datastore1-Shared";
+		String volumeName = "russVol01";
 		
 		System.out.println("Session Token: " + token);
 		
@@ -27,6 +29,13 @@ public class NimbleRESTMain {
 			
 			System.out.println("Volume ID for volume "+ volumeName +" is: " +volID);
 		}
+		
+		String volumeSnapshotJsonData = new GetSnapshots("10.113.89.25", token, volID).getSnapshotSummary();
+		
+		new GetSnapshotDetailResponse(volumeSnapshotJsonData).outputJSON();
+	
+		//System.out.println(volumeSnapshotJsonData);
+		
 	}
 	
 }
