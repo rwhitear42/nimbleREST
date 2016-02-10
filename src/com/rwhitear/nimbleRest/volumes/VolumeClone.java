@@ -16,7 +16,7 @@ public class VolumeClone {
 	private int tcpPort = NimbleRESTConstants.NIMBLE_TCP_PORT;
 	
 	private String token;
-
+	
 	// Constructors.
 	public VolumeClone(String arrayIP, String token) {
 		this.arrayIP = arrayIP;
@@ -30,14 +30,14 @@ public class VolumeClone {
 	}
 
 	
-	public void create() throws HttpException, IOException {
+	public String create(String cloneName, String baseSnapID) throws HttpException, IOException {
 			
-		volumeCloneObject vco = new volumeCloneObject();
+		volumeCloneObject vco = new volumeCloneObject( cloneName, baseSnapID );
 	
-		vco.setClone("true");		
-		vco.setName("sql-2-dbclone");
-		vco.setBase_snap_id("0440a3f34caa6f09be00000000000000240000139b");
-		vco.setOnline(true);
+		//vco.setClone("true");		
+		//vco.setName("sql-2-dbclone");
+		//vco.setBase_snap_id("0440a3f34caa6f09be00000000000000240000139b");
+		//vco.setOnline(true);
 		
 		volumeCloneDataObject da = new volumeCloneDataObject();
 		
@@ -57,11 +57,11 @@ public class VolumeClone {
 		
 		request.setBodyText( gson.toJson(da) );
 		
-		System.out.println("Presend bodytext: " +request.getBodyText());
+		//System.out.println("Presend bodytext: " +request.getBodyText());
 		
 		request.execute();
 		
-		System.out.println("Clone Result: " +request.getHttpResponse());
+		return request.getHttpResponse();
 
 	}
 }
@@ -82,11 +82,15 @@ class volumeCloneDataObject {
 }
 class volumeCloneObject {
 	
-	private String name;
-	private String clone;
-	private String base_snap_id;
-	private boolean online;
+	private String name = null;
+	private String clone = "true";
+	private String base_snap_id = null;
+	private boolean online = true;
 	
+	public volumeCloneObject(String cloneName, String base_snap_id) {
+		this.name = cloneName;
+		this.base_snap_id = base_snap_id;
+	}
 	
 	public String getClone() {
 		return clone;

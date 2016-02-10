@@ -18,13 +18,22 @@ public class NimbleRESTMain {
 
 	public static void main(String[] args) throws HttpException, IOException {
 		
-		String token = new GetSessionToken("10.113.89.25", "apiuser", "C1sco123").getNewToken();
+		String ipAddress = "10.113.89.25";
+		String username = "apiuser";
+		String password = "C1sco123";
+		String volumeName = "sql-1-db"; 
+		String baseSnapshotName = "baseline";
+		String cloneName = "sql-2-dbclone";
+		String initiatorGroupName = "UCS3-iGroup";
 		
-		String volumeName = "sql-1-db";
+		
+		// Retrieve Nimble array auth token.
+		String token = new GetSessionToken(ipAddress, username, password).getNewToken();
 		
 		System.out.println("Session Token: " + token);
 		
-		String volumeJsonData = new GetVolumes("10.113.89.25", token).getSummary();
+		// Get volume ID for 'volumeName'.
+		String volumeJsonData = new GetVolumes(ipAddress, token).getSummary();
 				
 		String volID = new GetVolumesSummaryResponse(volumeJsonData).getVolumeID(volumeName);
 
@@ -33,19 +42,22 @@ public class NimbleRESTMain {
 			System.out.println("Volume ID for volume "+ volumeName +" is: " +volID);
 		}
 		
-		String volumeSnapshotJsonData = new GetSnapshots("10.113.89.25", token, volID).getSnapshotSummary();
+		// Get snapshot ID for volume snapshot 'baseSnapshotName'.
+		String volumeSnapshotJsonData = new GetSnapshots(ipAddress, token, volID).getSnapshotSummary();
 		
-		System.out.println("Snapshot ID for snapshot baseline: " +new GetSnapshotDetailResponse(volumeSnapshotJsonData).getSnapshotID("baseline"));
+		System.out.println("Snapshot ID for snapshot "+baseSnapshotName+": " +new GetSnapshotDetailResponse(volumeSnapshotJsonData).getSnapshotID(baseSnapshotName));
 	
+		String snapID = new GetSnapshotDetailResponse(volumeSnapshotJsonData).getSnapshotID(baseSnapshotName);
 		
 		// Initiator Groups
-		String iGroupJsonData = new GetInitiatorGroups("10.113.89.25", token).getInitiatorGroupSummary();
+		String iGroupJsonData = new GetInitiatorGroups(ipAddress, token).getInitiatorGroupSummary();
 		
-		System.out.println("Initiator Group ID: " +new GetInitiatorGroupsDetailResponse(iGroupJsonData).getInitiatorGroupID("UCS3-iGroup"));
+		System.out.println("Initiator Group ID: " +new GetInitiatorGroupsDetailResponse(iGroupJsonData).getInitiatorGroupID(initiatorGroupName));
 		 
+		String response = new VolumeClone(ipAddress, token).create(cloneName, snapID);
 		
-		new VolumeClone("10.113.89.25", token).create();
-		
+		System.out.println("Create clone response: " + response);
+
 	}
 	
 }
