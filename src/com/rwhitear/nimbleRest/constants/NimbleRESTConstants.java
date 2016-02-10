@@ -18,4 +18,10 @@ public class NimbleRESTConstants {
 	
 	public static final String CREATE_VOLUME_CLONE_URI = "/v1/volumes";
 	
+	public static final String GET_ACCESS_CONTROL_RECORDS_URI = "/v1/access_control_records/detail?vol_name="; // Need to add volume name to the URI in your code.
+	
+	public static final String DELETE_ACCESS_CONTROL_RECORD_URI = "/v1/access_control_records/"; // Need to add ACR id to the URI in your code.
+
+	public static final String CREATE_ACCESS_CONTROL_RECORD_URI = "/v1/access_control_records";
+			
 }

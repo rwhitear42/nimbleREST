@@ -124,7 +124,7 @@ class InitiatorGroupDataObject {
 	private int last_modified;
 	private String name;
 	private String search_name;
-	private String target_subnets;
+	private List<TargetSubnetsObject> target_subnets;
 	
 	
 	public String getAccess_protocol() {
@@ -207,11 +207,11 @@ class InitiatorGroupDataObject {
 		this.search_name = search_name;
 	}
 	
-	public String getTarget_subnets() {
+	public List<TargetSubnetsObject> getTarget_subnets() {
 		return target_subnets;
 	}
 	
-	public void setTarget_subnets(String target_subnets) {
+	public void setTarget_subnets(List<TargetSubnetsObject> target_subnets) {
 		this.target_subnets = target_subnets;
 	}
 	
@@ -266,3 +266,18 @@ class IscsiInitiatorsObject {
 	}
 	
 }
+
+class TargetSubnetsObject {
+	
+	private String label;
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
+	
+}
+
