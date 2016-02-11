@@ -45,7 +45,7 @@ public class GetVolumes {
 		
 	}
 	
-	public void getDetail() throws HttpException, IOException {
+	public String getDetail() throws HttpException, IOException {
 		
 		UCSDHttpRequest request = new UCSDHttpRequest(this.arrayIP,"https", this.tcpPort);
 		
@@ -59,10 +59,10 @@ public class GetVolumes {
 		
 		request.execute();
 		
-		System.out.println("Volumes (Detailed View):\n\n" +request.getHttpResponse());
+		return request.getHttpResponse();
 		
 	}
-	
+		
 }
 
 
