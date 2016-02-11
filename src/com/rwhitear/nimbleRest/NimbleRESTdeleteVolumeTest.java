@@ -7,7 +7,6 @@ import com.rwhitear.nimbleRest.volumeCollections.AddVolumeToVolCollection;
 import com.rwhitear.nimbleRest.volumes.DeleteVolume;
 import com.rwhitear.nimbleRest.volumes.GetVolumes;
 import com.rwhitear.nimbleRest.volumes.OfflineVolume;
-import com.rwhitear.nimbleRest.volumes.json.GetVolumesSummaryResponse;
 import com.rwhitear.nimbleRest.volumes.json.ParseVolumeDetailResponse;
 import com.rwhitear.nimbleRest.volumes.json.VolumesDetailJsonObject;
 
