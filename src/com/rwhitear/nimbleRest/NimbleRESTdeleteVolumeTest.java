@@ -1,6 +1,10 @@
 package com.rwhitear.nimbleRest;
 
 import com.rwhitear.nimbleRest.authenticate.GetSessionToken;
+import com.rwhitear.nimbleRest.constants.NimbleRESTConstants;
+import com.rwhitear.nimbleRest.snapshots.OfflineSnapshot;
+import com.rwhitear.nimbleRest.volumeCollections.AddVolumeToVolCollection;
+import com.rwhitear.nimbleRest.volumes.DeleteVolume;
 import com.rwhitear.nimbleRest.volumes.GetVolumes;
 import com.rwhitear.nimbleRest.volumes.OfflineVolume;
 import com.rwhitear.nimbleRest.volumes.json.GetVolumesSummaryResponse;
@@ -19,7 +23,7 @@ public class NimbleRESTdeleteVolumeTest {
 		// Retrieve Nimble array auth token.
 		String token = new GetSessionToken(ipAddress, username, password).getNewToken();
 		
-		// Retrieve JSON reponse for detailed Volume information.
+		// Retrieve JSON response for detailed Volume information.
 		String volumeJsonData = new GetVolumes(ipAddress, token).getDetail();
 				
 		VolumesDetailJsonObject volDetail = new ParseVolumeDetailResponse(volumeJsonData).parse();
@@ -32,6 +36,8 @@ public class NimbleRESTdeleteVolumeTest {
 
 		}
 		
+		System.out.println("Attempting to delete volume [" +volumeName+ "].");
+		//actionLogger.addInfo("Attempting to delete volume [" +volumeName+ "].");
 	
 		// Search for volumeName.
 		for( int i = 0; i < volDetail.getData().size(); i++ ) {
@@ -51,6 +57,15 @@ public class NimbleRESTdeleteVolumeTest {
 								+ "][" + volDetail.getData().get(i).getOnline_snaps().get(j).getSnap_id() + "] offline.");
 						
 						// Snapshot offline logic here.
+						String offlineSnapResponse = new OfflineSnapshot(ipAddress, token, 
+								volDetail.getData().get(i).getOnline_snaps().get(j).getSnap_id() ).execute();
+						
+						System.out.println("Snapshot ["+ volDetail.getData().get(i).getOnline_snaps().get(j).getSnap_name() 
+								+"] Offline Response:\n" + offlineSnapResponse );
+						//actionLogger.addInfo("Snapshot ["+ volDetail.getData().get(i).getOnline_snaps().get(j).getSnap_name() 
+						//		+"] Offline Response:\n" + offlineSnapResponse );
+
+						
 					}
 					
 				} else {
@@ -81,38 +96,37 @@ public class NimbleRESTdeleteVolumeTest {
 					//actionLogger.addInfo("Volume [" ++ "] IS protected.");
 					
 					// Remove volume collection association logic here.
+					System.out.println("Disassociating Volume Collection [" 
+							+ volDetail.getData().get(i).getVolcoll_name() + "][" 
+							+ volDetail.getData().get(i).getVolcoll_id() + "].");
+					//actionLogger.addInfo("Disassociating Volume Collection [" 
+					//		+ volDetail.getData().get(i).getVolcoll_name() + "][" 
+					//		+ volDetail.getData().get(i).getVolcoll_id() + "].");
+					
+					String addVolCollResponse = new AddVolumeToVolCollection(ipAddress, token, 
+							volDetail.getData().get(i).getId(), NimbleRESTConstants.NO_VOLUME_COLLECTION_URI ).execute();
+					
+					System.out.println("Add Vol to VolColl Response: \n" + addVolCollResponse );
 					
 				} else {
 					System.out.println("Volume [" +volumeName+ "] is not protected.");
 					//actionLogger.addInfo("Volume [" ++ "] is not protected.");
 				}
 			
-			}
+				// All Dependencies have now been addressed. Go ahead and delete the volume.
+				String deleteVolResponse = new DeleteVolume(ipAddress, token, volDetail.getData().get(i).getId() ).execute();
+				
+				System.out.println("Delete Volume Response:\n" + deleteVolResponse );
+				//actionLogger.addInfo("Delete Volume Response:\n" + deleteVolResponse );
+				
+				// All done. Break the loop.
+				break;
+			}	
 			
 		}
 		
-		System.out.println("Volume Name: " + volDetail.getData().get(0).getName());
-		
-		System.out.println("Volume detail JSON:\n" + volumeJsonData);
-		
-		String volID = new GetVolumesSummaryResponse(volumeJsonData).getVolumeID(volumeName);
-
-		if (volID == null)
-		{
-			
-			//actionLogger.addError("Volume doesn't exist.");
-			
-			throw new Exception("Volume " + volumeName + " doesn't exist.");
-			
-		} 
-			
-			
-		// Volume exists. Continue...
-		
-		System.out.println("volID: " + volID);
-		//actionLogger.addInfo("volID: " + volID);
-		
+		System.out.println("All done.");
+		//actionLogger.addInfo("All done.");
 		
 	}
-
 }

@@ -25,5 +25,15 @@ public class NimbleRESTConstants {
 	public static final String DELETE_ACCESS_CONTROL_RECORD_URI = "/v1/access_control_records/"; // Need to add ACR id to the URI in your code.
 
 	public static final String CREATE_ACCESS_CONTROL_RECORD_URI = "/v1/access_control_records";
+	
+	public static final String GET_VOLUME_COLLECTIONS_DETAIL_URI = "/v1/volume_collections/detail";
+	
+	public static final String ADD_VOL_TO_VOLUME_COLLECTION_URI = "/v1/volumes/";  // Need to add Volume ID to this URI in your code.
+	
+	public static final String DELETE_VOLUME_URI = "/v1/volumes/";  // Need to add Volume ID to this URI in your code.
+	
+	public static final String NO_VOLUME_COLLECTION_URI = ""; // Effectively adding a volume to an empty volume collection.
+	
+	public static final String OFFLINE_SNAPSHOT_URI = "/v1/snapshots/"; // Need to add Snapshot ID to this URI in your code.
 			
 }
