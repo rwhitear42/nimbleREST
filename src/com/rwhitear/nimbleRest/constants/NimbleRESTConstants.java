@@ -35,5 +35,7 @@ public class NimbleRESTConstants {
 	public static final String NO_VOLUME_COLLECTION_URI = ""; // Effectively adding a volume to an empty volume collection.
 	
 	public static final String OFFLINE_SNAPSHOT_URI = "/v1/snapshots/"; // Need to add Snapshot ID to this URI in your code.
+	
+	public static final String GET_PERF_POLICY_DETAIL_URI = "/v1/performance_policies/detail";
 			
 }

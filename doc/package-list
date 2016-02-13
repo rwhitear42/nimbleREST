@@ -1,5 +1,6 @@
-
 com.rwhitear.nimbleRest
+com.rwhitear.nimbleRest.accessControlRecords
+com.rwhitear.nimbleRest.accessControlRecords.json
 com.rwhitear.nimbleRest.authenticate
 com.rwhitear.nimbleRest.authenticate.json
 com.rwhitear.nimbleRest.constants
@@ -7,5 +8,7 @@ com.rwhitear.nimbleRest.initiatorGroups
 com.rwhitear.nimbleRest.initiatorGroups.json
 com.rwhitear.nimbleRest.snapshots
 com.rwhitear.nimbleRest.snapshots.json
+com.rwhitear.nimbleRest.volumeCollections
+com.rwhitear.nimbleRest.volumeCollections.json
 com.rwhitear.nimbleRest.volumes
 com.rwhitear.nimbleRest.volumes.json

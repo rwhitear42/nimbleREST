@@ -11,7 +11,14 @@ import com.rwhitear.nimbleRest.volumes.json.OfflineVolumeObject;
 import com.rwhitear.ucsdHttpRequest.UCSDHttpRequest;
 import com.rwhitear.ucsdHttpRequest.constants.HttpRequestConstants;
 
-
+/**
+ * Take a Nimble array volume offline via its RESTful API.
+ * 
+ * @author rwhitear@cisco.com
+ * 
+ * @version 1.0
+ *
+ */
 public class OfflineVolume {
 
 	private String arrayIP;
@@ -23,12 +30,43 @@ public class OfflineVolume {
 	private String vol_id;
 	
 	// Constructors.
+	/**
+	 * 
+	 * Offline a Nimble array volume.
+	 * 
+	 * @param arrayIP  	IP address of the target Nimble array.
+	 * 
+	 * @param token 	Authentication token retrieved earlier from the array for this session
+	 * 					which needs to be set in an HTTP header called X-Auth-Token. Token retrieval
+	 * 					can be achieved using the com.rwhitear.nimbleRest.authenticate.GetSessionToken
+	 * 					class.
+	 * 
+	 * @param vol_id	Nimble REST API volume ID for volume to be taken offline.
+	 * 
+	 */
 	public OfflineVolume(String arrayIP, String token, String vol_id ) {
 		this.arrayIP = arrayIP;
 		this.token = token;
 		this.vol_id = vol_id;
 	}
 	
+	/**
+	 * 
+	 * Offline a Nimble array volume.
+	 * 
+	 * @param arrayIP  	IP address of the target Nimble array.
+	 * 
+	 * @param tcpPort	Destination Nimble array TCP port for RESTful API access (Defaults to 5392).
+	 * 
+	 * @param token 	Authentication token retrieved earlier from the array for this session
+	 * 					which needs to be set in an HTTP header called X-Auth-Token. Token retrieval
+	 * 					can be achieved using the com.rwhitear.nimbleRest.authenticate.GetSessionToken
+	 * 					class.
+	 * 
+	 * @param vol_id	Nimble REST API volume ID for volume to be taken offline.
+	 * 
+	 */
+
 	public OfflineVolume(String arrayIP, int tcpPort, String token, String vol_id ) {
 		this.arrayIP = arrayIP;
 		this.tcpPort = tcpPort;
@@ -38,7 +76,16 @@ public class OfflineVolume {
 
 	
 	
-	
+	/**
+	 * 
+	 * Execute a Nimble array volume offline operation via its RESTful API.
+	 *  
+	 * @return	The HTTP response received following the delete request.
+	 * 
+	 * @throws 	HttpException HTTP request execution exception.
+	 * 
+	 * @throws 	IOException HTTP request execution exception.
+	 */
 	public String execute() throws HttpException, IOException {
  
 		// Build JSON command body text required to offline volume.

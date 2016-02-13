@@ -9,6 +9,15 @@ import com.rwhitear.nimbleRest.constants.NimbleRESTConstants;
 import com.rwhitear.ucsdHttpRequest.UCSDHttpRequest;
 import com.rwhitear.ucsdHttpRequest.constants.HttpRequestConstants;
 
+
+/**
+ * Clone a Nimble array volume snapshot via its RESTful API.
+ * 
+ * @author rwhitear@cisco.com
+ * 
+ * @version 1.0
+ * 
+ */
 public class VolumeClone {
 
 	private String arrayIP;
@@ -18,11 +27,37 @@ public class VolumeClone {
 	private String token;
 	
 	// Constructors.
+	/**
+	 * 
+	 * Clone volume information from a specified Nimble array.
+	 * 
+	 * @param arrayIP  	IP address of the target Nimble array.
+	 * 
+	 * @param token 	Authentication token retrieved earlier from the array for this session
+	 * 					which needs to be set in an HTTP header called X-Auth-Token. Token retrieval
+	 * 					can be achieved using the com.rwhitear.nimbleRest.authenticate.GetSessionToken
+	 * 					class.
+	 * 
+	 */
 	public VolumeClone(String arrayIP, String token) {
 		this.arrayIP = arrayIP;
 		this.token = token;
 	}
 	
+	/**
+	 * 
+	 * Clone volume information from a specified Nimble array.
+	 * 
+	 * @param arrayIP  	IP address of the target Nimble array.
+	 * 
+	 * @param tcpPort	Destination Nimble array TCP port for RESTful API access (Defaults to 5392).
+	 * 
+	 * @param token 	Authentication token retrieved earlier from the array for this session
+	 * 					which needs to be set in an HTTP header called X-Auth-Token. Token retrieval
+	 * 					can be achieved using the com.rwhitear.nimbleRest.authenticate.GetSessionToken
+	 * 					class.
+	 * 
+	 */
 	public VolumeClone(String arrayIP, int tcpPort, String token) {
 		this.arrayIP = arrayIP;
 		this.tcpPort = tcpPort;
@@ -30,6 +65,18 @@ public class VolumeClone {
 	}
 
 	
+	/**
+	 * 
+	 * @param cloneName			Name of the newly created cloned volume.
+	 * 
+	 * @param baseSnapID		Source volume Snapshot ID to be used to create the cloned volume.
+	 *  
+	 * @return					The HTTP response for the clone request.
+	 * 
+	 * @throws 	HttpException HTTP request execution exception.
+	 * 
+	 * @throws 	IOException HTTP request execution exception.
+	 */
 	public String create(String cloneName, String baseSnapID) throws HttpException, IOException {
 			
 		volumeCloneObject vco = new volumeCloneObject( cloneName, baseSnapID );
