@@ -1,6 +1,15 @@
 package com.rwhitear.nimbleRest.volumes;
 
+import java.io.IOException;
+
+import org.apache.commons.httpclient.HttpException;
+
+import com.google.gson.Gson;
 import com.rwhitear.nimbleRest.constants.NimbleRESTConstants;
+import com.rwhitear.nimbleRest.volumes.json.CreateVolumeDataObject;
+import com.rwhitear.nimbleRest.volumes.json.CreateVolumeObject;
+import com.rwhitear.ucsdHttpRequest.constants.HttpRequestConstants;
+import com.rwhitear.ucsdHttpRequest.UCSDHttpRequest;
 
 /**
  * Create a volume on a Nimble array via its RESTful API. This volume creation
@@ -23,16 +32,12 @@ public class CreateVolume {
 	private String		volumeName;
 	private String		volumeSizeGB;
 	private String		description;
-	private String		perfPolicy;
+	private String		perfPolicyID;
 	private boolean		dataEncryption;
 	private boolean		cachePinning;
 	
 	
-	// Constructors.
-	public CreateVolume() {
-		
-	}
-	
+	// Constructors.	
 	/**
 	 * Access the Nimble array whilst leaving the TCP port at default (5392).
 	 * 
@@ -63,7 +68,72 @@ public class CreateVolume {
 	}
 	
 	
-	// Methods here.
+	public String create(String volumeName, String description, String perfPolicyID, boolean dataEncryption,
+							String volumeSizeGB, boolean cachePinning) throws HttpException, IOException {
+		
+		this.volumeName = volumeName;
+		this.perfPolicyID = perfPolicyID;
+		this.description = description;
+		this.dataEncryption = dataEncryption;
+		this.volumeSizeGB = volumeSizeGB;
+		this.cachePinning = cachePinning;
+		
+	
+			
+		// Convert String value to and integer, multiply it by 1024 as the REST API expects the size to 
+		// be listed in MB. Convert result back to a string. 
+		String volumeSizeMB = Integer.toString(Integer.parseInt(volumeSizeGB) * 1024);
+		
+		CreateVolumeDataObject volData = new CreateVolumeDataObject();
+		
+		volData.setName(this.volumeName);
+		
+		volData.setPerfpolicy_id(perfPolicyID);
+		
+		volData.setDescription(this.description);
+		
+		if( this.dataEncryption == true ) {
+			volData.setEncryption_cipher(NimbleRESTConstants.VOLUME_ENCRYPTION_CIPHER );
+		} else {
+			volData.setEncryption_cipher(NimbleRESTConstants.NO_VOLUME_ENCRYPTION );
+		}
+		
+		volData.setSize(volumeSizeMB);
+		
+		volData.setCache_pinned(this.cachePinning);
+		
+		CreateVolumeObject volObj = new CreateVolumeObject();
+		
+		volObj.setData(volData);
+		
+		Gson gson = new Gson();
+		
+		String bodyText = gson.toJson(volObj);
+		
+		System.out.println("Presend bodyText: " +bodyText );
+
+
+		// Create operation.
+		UCSDHttpRequest request = new UCSDHttpRequest(this.arrayIP,"https", this.tcpPort);
+		
+		request.addContentTypeHeader(HttpRequestConstants.CONTENT_TYPE_JSON);
+		
+		request.addRequestHeaders("X-Auth-Token", this.token );
+		
+		request.setUri( NimbleRESTConstants.CREATE_VOLUME_URI );
+		
+		request.setMethodType( HttpRequestConstants.METHOD_TYPE_POST );
+		
+		request.setBodyText( bodyText );
+		
+		//System.out.println("Presend bodytext: " +request.getBodyText());
+		
+		request.execute();
+		
+		return request.getHttpResponse();
+
+		
+	}
 	
 	
 	public String getArrayIP() {
@@ -103,10 +173,10 @@ public class CreateVolume {
 		this.description = description;
 	}
 	public String getPerfPolicy() {
-		return perfPolicy;
+		return perfPolicyID;
 	}
-	public void setPerfPolicy(String perfPolicy) {
-		this.perfPolicy = perfPolicy;
+	public void setPerfPolicy(String perfPolicyID) {
+		this.perfPolicyID = perfPolicyID;
 	}
 	public boolean isDataEncryption() {
 		return dataEncryption;

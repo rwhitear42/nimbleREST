@@ -26,6 +26,8 @@ public class NimbleRESTConstants {
 
 	public static final String CREATE_ACCESS_CONTROL_RECORD_URI = "/v1/access_control_records";
 	
+	public static final String CREATE_VOLUME_URI = "/v1/volumes";
+	
 	public static final String GET_VOLUME_COLLECTIONS_DETAIL_URI = "/v1/volume_collections/detail";
 	
 	public static final String ADD_VOL_TO_VOLUME_COLLECTION_URI = "/v1/volumes/";  // Need to add Volume ID to this URI in your code.
@@ -37,5 +39,8 @@ public class NimbleRESTConstants {
 	public static final String OFFLINE_SNAPSHOT_URI = "/v1/snapshots/"; // Need to add Snapshot ID to this URI in your code.
 	
 	public static final String GET_PERF_POLICY_DETAIL_URI = "/v1/performance_policies/detail";
+	
+	public static final String VOLUME_ENCRYPTION_CIPHER = "aes_256_xts";
+	public static final String NO_VOLUME_ENCRYPTION = "none";
 			
 }

@@ -17,7 +17,7 @@ public class NimbleRESTdeleteVolumeTest {
 		String ipAddress = "10.113.89.25";
 		String username = "apiuser";
 		String password = "C1sco123";
-		String volumeName = "sql-1-db"; 
+		String volumeName = "russVol02"; 
 
 		// Retrieve Nimble array auth token.
 		String token = new GetSessionToken(ipAddress, username, password).getNewToken();
