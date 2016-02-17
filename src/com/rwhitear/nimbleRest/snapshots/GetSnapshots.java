@@ -50,4 +50,24 @@ public class GetSnapshots {
 		return request.getHttpResponse();
 		
 	}
+	
+	
+	public String getDetail() throws HttpException, IOException {
+		
+		UCSDHttpRequest request = new UCSDHttpRequest(this.arrayIP,"https", this.tcpPort);
+		
+		request.addContentTypeHeader(HttpRequestConstants.CONTENT_TYPE_JSON );
+		
+		request.addRequestHeaders("X-Auth-Token", this.token );
+		
+		request.setUri(NimbleRESTConstants.GET_SNAPSHOT_DETAIL_URI +this.volumeID );
+		
+		request.setMethodType(HttpRequestConstants.METHOD_TYPE_GET );
+		
+		request.execute();
+		
+		return request.getHttpResponse();
+		
+	}
+
 }

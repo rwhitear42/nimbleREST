@@ -22,14 +22,14 @@ public class NimbleRESTvolumeCollectionsTest {
 		String token = new GetSessionToken(ipAddress, username, password).getNewToken();
 		
 		// Retrieve JSON reponse for detailed Volume information.
-		//String volCollectinoJsonData = new GetVolumeCollections(ipAddress, token).getDetail();
+		String volCollectinoJsonData = new GetVolumeCollections(ipAddress, token).getDetail();
 
-		//System.out.println("Volume Collections Detail JSON: " + volCollectinoJsonData );
+		System.out.println("Volume Collections Detail JSON: " + volCollectinoJsonData );
 		//actionLogger.addInfo("Volume Collections Detail JSON: " + volCollectinoJsonData );
 		
-		//VolCollectionsDetailJsonObject volCollDetail = new ParseVolCollectionsDetailResponse(volCollectinoJsonData).parse();
+		VolCollectionsDetailJsonObject volCollDetail = new ParseVolCollectionsDetailResponse(volCollectinoJsonData).parse();
 		
-		//System.out.println("size: " + volCollDetail.getData().size() );
+		System.out.println("size: " + volCollDetail.getData().size() );
 		
 	}
 

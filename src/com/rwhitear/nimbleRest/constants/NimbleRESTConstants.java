@@ -12,8 +12,6 @@ public class NimbleRESTConstants {
 	
 	public static final String GET_VOLUMES_DETAIL_URI = "/v1/volumes/detail";
 	
-	public static final String GET_SNAPSHOT_DETAIL_URI = "/v1/snapshots/detail?vol_id="; // Need to add volume id to the URI in your code.
-	
 	public static final String GET_INITIATOR_GROUPS_URI = "/v1/initiator_groups/detail";
 	
 	public static final String CREATE_VOLUME_CLONE_URI = "/v1/volumes";
@@ -36,11 +34,19 @@ public class NimbleRESTConstants {
 	
 	public static final String NO_VOLUME_COLLECTION_URI = ""; // Effectively adding a volume to an empty volume collection.
 	
-	public static final String OFFLINE_SNAPSHOT_URI = "/v1/snapshots/"; // Need to add Snapshot ID to this URI in your code.
-	
 	public static final String GET_PERF_POLICY_DETAIL_URI = "/v1/performance_policies/detail";
 	
 	public static final String VOLUME_ENCRYPTION_CIPHER = "aes_256_xts";
 	public static final String NO_VOLUME_ENCRYPTION = "none";
+	
+	// Snapshots.
+	public static final String GET_SNAPSHOT_DETAIL_URI = "/v1/snapshots/detail?vol_id="; // Need to add volume id to the URI in your code.
+	
+	public static final String OFFLINE_SNAPSHOT_URI = "/v1/snapshots/"; // Need to add Snapshot ID to this URI in your code.
+	
+	public static final String DELETE_SNAPSHOT_URI = "/v1/snapshots/"; // Need to add Snapshot ID to this URI in your code.
+	
+	public static final String CREATE_SNAPSHOT_URI = "/v1/snapshots";
+	
 			
 }

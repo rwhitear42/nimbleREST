@@ -6,6 +6,8 @@ com.rwhitear.nimbleRest.authenticate.json
 com.rwhitear.nimbleRest.constants
 com.rwhitear.nimbleRest.initiatorGroups
 com.rwhitear.nimbleRest.initiatorGroups.json
+com.rwhitear.nimbleRest.performancePolicies
+com.rwhitear.nimbleRest.performancePolicies.json
 com.rwhitear.nimbleRest.snapshots
 com.rwhitear.nimbleRest.snapshots.json
 com.rwhitear.nimbleRest.volumeCollections

@@ -68,6 +68,31 @@ public class CreateVolume {
 	}
 	
 	
+	/**
+	 * Create a new Nimble volume.
+	 * 
+	 * @param volumeName 		Name to be given to the new volume.
+	 * 
+	 * @param description		Volume description.
+	 * 
+	 * @param perfPolicyID		Performance policy ID. Use com.rwhitear.nimbleRest.performancePolicies.GetPerformancePolicies
+	 * 							to retrieve this ID from the performance policy name if required.
+	 * 
+	 * @param dataEncryption	Choose whether volume should be encrypted or not.
+	 * 
+	 * @param volumeSizeGB		Volume size in GB. This value needs to be converted to MB before calling the Nimble REST API
+	 * 							as it accepts only MB values.
+	 * 
+	 * @param cachePinning		Should volume be pinned in cache?
+	 * 
+	 * @return					Right now, just returns the HTTP response for the request. Need to write in comprehensive error
+	 * 							checking.
+	 * 
+	 * @throws HttpException	HTTP request exception handling.
+	 * 
+	 * @throws IOException		HTTP request exception handling.
+	 * 
+	 */
 	public String create(String volumeName, String description, String perfPolicyID, boolean dataEncryption,
 							String volumeSizeGB, boolean cachePinning) throws HttpException, IOException {
 		
