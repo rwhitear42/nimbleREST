@@ -49,6 +49,13 @@ public class NimbleRESTConstants {
 	// Fibre Channel Ports
 	public static final String GET_FIBRE_CHANNEL_PORTS_URI = "/v1/fibre_channel_ports/detail";
 	
+	// Initiators
+	public static final String GET_INITIATORS_URI = "/v1/initiators/detail";
+	
+	public static final String CREATE_INITIATOR_URI = "/v1/initiators";
+	
+	public static final String DELETE_INITIATOR_URI = "/v1/initiators/";
+	
 	// Initiator Groups
 	public static final String GET_INITIATOR_GROUPS_URI = "/v1/initiator_groups/detail";
 	
