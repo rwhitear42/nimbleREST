@@ -71,7 +71,7 @@ public class NimbleRESTMain {
 		// Initiator Groups
 		System.out.println("Retrieving Initiator Group ID for iGroup ["+ initiatorGroupName + "].");
 		
-		String iGroupJsonData = new GetInitiatorGroups(ipAddress, token).getInitiatorGroupSummary();
+		String iGroupJsonData = new GetInitiatorGroups(ipAddress, token).getDetail();
 		
 		System.out.println("iGroupJsonData: " + iGroupJsonData);
 		

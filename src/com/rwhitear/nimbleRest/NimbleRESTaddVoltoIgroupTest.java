@@ -7,7 +7,8 @@ import org.apache.commons.httpclient.HttpException;
 import com.rwhitear.nimbleRest.accessControlRecords.CreateAccessControlRecord;
 import com.rwhitear.nimbleRest.authenticate.GetSessionToken;
 import com.rwhitear.nimbleRest.initiatorGroups.GetInitiatorGroups;
-import com.rwhitear.nimbleRest.initiatorGroups.json.GetInitiatorGroupsDetailResponse;
+import com.rwhitear.nimbleRest.initiatorGroups.ParseInitiatorGroupsDetailResponse;
+import com.rwhitear.nimbleRest.initiatorGroups.json.GetInitiatorGroupsDetailObject;
 import com.rwhitear.nimbleRest.volumes.GetVolumes;
 import com.rwhitear.nimbleRest.volumes.json.GetVolumesSummaryResponse;
 
@@ -46,14 +47,32 @@ public class NimbleRESTaddVoltoIgroupTest {
 		// Initiator Groups
 		System.out.println("Retrieving Initiator Group ID for iGroup ["+ initiatorGroupName + "].");
 		
-		String iGroupJsonData = new GetInitiatorGroups(ipAddress, token).getInitiatorGroupSummary();
+		String iGroupsResponse = new GetInitiatorGroups(ipAddress, token).getDetail();
 		
-		System.out.println("iGroupJsonData: " + iGroupJsonData);
+		System.out.println("iGroupsResponse: " + iGroupsResponse);
 		
-		String iGroupID = new GetInitiatorGroupsDetailResponse(iGroupJsonData).getInitiatorGroupID(initiatorGroupName);
+		GetInitiatorGroupsDetailObject iGroupObj = new ParseInitiatorGroupsDetailResponse(iGroupsResponse).parse();
+		
+		System.out.println("Initiator Groups size: " + iGroupObj.getData().size() );
+		
 
-		System.out.println("iGroupID: " + iGroupID );
+		String iGroupID = "";
 		
+		for( int i=0; i < iGroupObj.getData().size(); i++ ) {
+			
+			if( iGroupObj.getData().get(i).getName().equals(initiatorGroupName)) {
+				
+				iGroupID = iGroupObj.getData().get(i).getId();
+				
+				System.out.println("iGroup ID ["+iGroupID+"] found for iGroup name [" +iGroupObj.getData().get(i).getName()+ "]." );
+				
+				break;
+				
+			}
+			
+			
+		}
+
 		
 		// Create new ACR.
 		if( !volID.equals(null) ) {

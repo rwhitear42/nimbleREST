@@ -31,6 +31,25 @@ public class NimbleRESTvolumeCollectionsTest {
 		
 		System.out.println("size: " + volCollDetail.getData().size() );
 		
+		for( int i=0; i < volCollDetail.getData().size(); i++ ) {
+			
+			System.out.println("Volume collection name["+i+"]: " + volCollDetail.getData().get(i).getName() );
+			
+			System.out.println("Volume collection vol list size: " + volCollDetail.getData().get(i).getVolume_list().size() );
+			
+			for( int j=0; j < volCollDetail.getData().size(); j++ ) {
+				
+				System.out.println("Volume collection vol list name ["+j+"]: " + 
+						volCollDetail.getData().get(i).getVolume_list().get(j).getVol_name() );
+				
+			}
+			
+		}
+		
+
+		
+		
+		
 	}
 
 }

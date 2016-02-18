@@ -12,8 +12,6 @@ public class NimbleRESTConstants {
 	
 	public static final String GET_VOLUMES_DETAIL_URI = "/v1/volumes/detail";
 	
-	public static final String GET_INITIATOR_GROUPS_URI = "/v1/initiator_groups/detail";
-	
 	public static final String CREATE_VOLUME_CLONE_URI = "/v1/volumes";
 	
 	public static final String OFFLINE_VOLUME_URI = "/v1/volumes/"; // Volume id needs to be appended to this URI in your code.
@@ -32,7 +30,7 @@ public class NimbleRESTConstants {
 	
 	public static final String DELETE_VOLUME_URI = "/v1/volumes/";  // Need to add Volume ID to this URI in your code.
 	
-	public static final String NO_VOLUME_COLLECTION_URI = ""; // Effectively adding a volume to an empty volume collection.
+	public static final String NO_VOLUME_COLLECTION_ID = ""; // Effectively adding a volume to an empty volume collection.
 	
 	public static final String GET_PERF_POLICY_DETAIL_URI = "/v1/performance_policies/detail";
 	
@@ -47,6 +45,22 @@ public class NimbleRESTConstants {
 	public static final String DELETE_SNAPSHOT_URI = "/v1/snapshots/"; // Need to add Snapshot ID to this URI in your code.
 	
 	public static final String CREATE_SNAPSHOT_URI = "/v1/snapshots";
+	
+	// Fibre Channel Ports
+	public static final String GET_FIBRE_CHANNEL_PORTS_URI = "/v1/fibre_channel_ports/detail";
+	
+	// Initiator Groups
+	public static final String GET_INITIATOR_GROUPS_URI = "/v1/initiator_groups/detail";
+	
+	public static final String CREATE_INITIATOR_GROUP_URI = "/v1/initiator_groups";
+	
+	public static final String DELETE_INITIATOR_GROUP_URI = "/v1/initiator_groups/"; // Need to add iGroupID to this URI in your code.
+	
+	// Protection Templates.
+	public static final String GET_PROTECTION_TEMPLATES_URI = "/v1/protection_templates/detail";
+	
+	// Subnets.
+	public static final String GET_SUBNETS_URI = "/v1/subnets/detail";
 	
 			
 }
