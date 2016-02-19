@@ -6,6 +6,7 @@ import org.apache.commons.httpclient.HttpException;
 
 import com.rwhitear.nimbleRest.authenticate.GetSessionToken;
 import com.rwhitear.nimbleRest.exceptions.InitiatorGroupException;
+import com.rwhitear.nimbleRest.httpErrorHandling.json.ErrorResponseObject;
 import com.rwhitear.nimbleRest.initiatorGroups.GetInitiatorGroups;
 import com.rwhitear.nimbleRest.initiatorGroups.ParseInitiatorGroupsDetailResponse;
 import com.rwhitear.nimbleRest.initiatorGroups.json.GetInitiatorGroupsDetailObject;
@@ -19,8 +20,8 @@ public class CreateInitiatorTest {
 		String username = "apiuser";
 		String password = "C1sco123"; 
 		String initiatorGroupName = "sql-1";
-		String initiatorLabel = "initiator01";
-		String iqn = "iqn.2015-07.test2";
+		String initiatorLabel = "initiator06";
+		String iqn = "iqn.2015-07.test6";
 
 		
 		// Retrieve Nimble array auth token.
@@ -59,6 +60,22 @@ public class CreateInitiatorTest {
 		String ciiCreateResponse = cii.create(initiatorGroupID, initiatorLabel, iqn);
 		
 		System.out.println("ciiCreateResponse: " + ciiCreateResponse );
+		
+		System.out.println("HTTP status code: " + cii.getHttpStatusCode() );
+		
+		if( cii.getHttpStatusCode() != 201 ) {
+			
+			ErrorResponseObject ero = cii.getErrorResponse();
+			
+			for( int i = 0; i < ero.getMessages().size(); i++ ) {
+				
+				System.out.println("Error ["+ero.getMessages().get(i).getCode()+"]: " + ero.getMessages().get(i).getText() );
+				
+			}
+			
+			throw new InitiatorGroupException("Request failed.");
+			
+		}
 
 	}
 

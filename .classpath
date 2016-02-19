@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="lib/gson/google-gson.jar"/>
 	<classpathentry kind="lib" path="lib/ucsd-httprequest/httpRequest-ucsd-1.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/rwhitear/Git/nimbleREST/lib/ucsd-oa-sdk/ucsd-oa-api.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
