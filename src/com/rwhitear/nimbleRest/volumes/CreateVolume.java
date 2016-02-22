@@ -6,6 +6,8 @@ import org.apache.commons.httpclient.HttpException;
 
 import com.google.gson.Gson;
 import com.rwhitear.nimbleRest.constants.NimbleRESTConstants;
+import com.rwhitear.nimbleRest.httpErrorHandling.ProcessErrorResponse;
+import com.rwhitear.nimbleRest.httpErrorHandling.json.ErrorResponseObject;
 import com.rwhitear.nimbleRest.volumes.json.CreateVolumeDataObject;
 import com.rwhitear.nimbleRest.volumes.json.CreateVolumeObject;
 import com.rwhitear.ucsdHttpRequest.constants.HttpRequestConstants;
@@ -35,6 +37,9 @@ public class CreateVolume {
 	private String		perfPolicyID;
 	private boolean		dataEncryption;
 	private boolean		cachePinning;
+	
+	private int					httpStatusCode;
+	private ErrorResponseObject	errorResponse;
 	
 	
 	// Constructors.	
@@ -155,6 +160,16 @@ public class CreateVolume {
 		
 		request.execute();
 		
+		this.httpStatusCode  = request.getStatusCode();
+		
+		if( (this.httpStatusCode != 201) && (this.httpStatusCode != 200) ) {
+			
+			System.out.println("Nimble array returns HTTP status [" + request.getStatusCode() + "]. Processing error.");
+			
+			this.errorResponse = new ProcessErrorResponse().parse(request.getHttpResponse());
+			
+		}
+				
 		return request.getHttpResponse();
 
 		
@@ -164,56 +179,89 @@ public class CreateVolume {
 	public String getArrayIP() {
 		return arrayIP;
 	}
+	
 	public void setArrayIP(String arrayIP) {
 		this.arrayIP = arrayIP;
 	}
+	
 	public int getTcpPort() {
 		return tcpPort;
 	}
+	
 	public void setTcpPort(int tcpPort) {
 		this.tcpPort = tcpPort;
 	}
+	
 	public String getToken() {
 		return token;
 	}
+	
 	public void setToken(String token) {
 		this.token = token;
 	}
+	
 	public String getVolumeName() {
 		return volumeName;
 	}
+	
 	public void setVolumeName(String volumeName) {
 		this.volumeName = volumeName;
 	}
+	
 	public String getVolumeSizeGB() {
 		return volumeSizeGB;
 	}
+	
 	public void setVolumeSizeGB(String volumeSizeGB) {
 		this.volumeSizeGB = volumeSizeGB;
 	}
+	
 	public String getDescription() {
 		return description;
 	}
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 	public String getPerfPolicy() {
 		return perfPolicyID;
 	}
+	
 	public void setPerfPolicy(String perfPolicyID) {
 		this.perfPolicyID = perfPolicyID;
 	}
+	
 	public boolean isDataEncryption() {
 		return dataEncryption;
 	}
+	
 	public void setDataEncryption(boolean dataEncryption) {
 		this.dataEncryption = dataEncryption;
 	}
+	
 	public boolean isCachePinning() {
 		return cachePinning;
 	}
+	
 	public void setCachePinning(boolean cachePinning) {
 		this.cachePinning = cachePinning;
+	}
+	
+	public int getHttpStatusCode() {
+		return httpStatusCode;
+	}
+
+	public void setHttpStatusCode(int httpStatusCode) {
+		this.httpStatusCode = httpStatusCode;
+	}
+
+	public ErrorResponseObject getErrorResponse() {
+		return errorResponse;
+	}
+
+	public void setErrorResponse(ErrorResponseObject errorResponse) {
+		this.errorResponse = errorResponse;
 	}
 
 }

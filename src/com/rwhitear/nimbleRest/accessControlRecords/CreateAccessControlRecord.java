@@ -8,6 +8,8 @@ import com.google.gson.Gson;
 import com.rwhitear.nimbleRest.accessControlRecords.json.CreateACRdataObject;
 import com.rwhitear.nimbleRest.accessControlRecords.json.CreateACRobject;
 import com.rwhitear.nimbleRest.constants.NimbleRESTConstants;
+import com.rwhitear.nimbleRest.httpErrorHandling.ProcessErrorResponse;
+import com.rwhitear.nimbleRest.httpErrorHandling.json.ErrorResponseObject;
 import com.rwhitear.ucsdHttpRequest.UCSDHttpRequest;
 import com.rwhitear.ucsdHttpRequest.constants.HttpRequestConstants;
 
@@ -25,6 +27,9 @@ public class CreateAccessControlRecord {
 	private String initiator_group_id;
 	
 	private String vol_id;
+	
+	private int					httpStatusCode;
+	private ErrorResponseObject	errorResponse;
 	
 	// Constructors.
 	public CreateAccessControlRecord(String arrayIP, String token, String vol_id, String initiator_group_id ) {
@@ -100,7 +105,33 @@ public class CreateAccessControlRecord {
 		
 		request.execute();
 		
+		this.httpStatusCode  = request.getStatusCode();
+		
+		if( (this.httpStatusCode != 201) && (this.httpStatusCode != 200) ) {
+			
+			System.out.println("Nimble array returns HTTP status [" + request.getStatusCode() + "]. Processing error.");
+			
+			this.errorResponse = new ProcessErrorResponse().parse(request.getHttpResponse());
+			
+		}
+		
 		return request.getHttpResponse();
+	}
+	
+	public int getHttpStatusCode() {
+		return httpStatusCode;
+	}
+
+	public void setHttpStatusCode(int httpStatusCode) {
+		this.httpStatusCode = httpStatusCode;
+	}
+
+	public ErrorResponseObject getErrorResponse() {
+		return errorResponse;
+	}
+
+	public void setErrorResponse(ErrorResponseObject errorResponse) {
+		this.errorResponse = errorResponse;
 	}
 	
 }

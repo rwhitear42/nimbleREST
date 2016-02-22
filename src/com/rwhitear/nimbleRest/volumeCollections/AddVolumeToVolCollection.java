@@ -6,6 +6,8 @@ import org.apache.commons.httpclient.HttpException;
 
 import com.google.gson.Gson;
 import com.rwhitear.nimbleRest.constants.NimbleRESTConstants;
+import com.rwhitear.nimbleRest.httpErrorHandling.ProcessErrorResponse;
+import com.rwhitear.nimbleRest.httpErrorHandling.json.ErrorResponseObject;
 import com.rwhitear.nimbleRest.volumeCollections.json.AddVolToVolCollectionDataObject;
 import com.rwhitear.nimbleRest.volumeCollections.json.AddVolToVolCollectionObject;
 import com.rwhitear.ucsdHttpRequest.UCSDHttpRequest;
@@ -22,6 +24,9 @@ public class AddVolumeToVolCollection {
 	private String volID;
 	
 	private String volCollectionID;
+	
+	private int					httpStatusCode;
+	private ErrorResponseObject	errorResponse;
 	
 	// Constructors.
 	public AddVolumeToVolCollection(String arrayIP, String token, String volID, String volCollectionID ) {
@@ -71,8 +76,35 @@ public class AddVolumeToVolCollection {
 		
 		request.execute();
 		
+		this.httpStatusCode  = request.getStatusCode();
+		
+		if( (this.httpStatusCode != 201) && (this.httpStatusCode != 200) ) {
+			
+			System.out.println("Nimble array returns HTTP status [" + request.getStatusCode() + "]. Processing error.");
+			
+			this.errorResponse = new ProcessErrorResponse().parse(request.getHttpResponse());
+			
+		}
+	
 		return request.getHttpResponse();
 		
+	}
+
+	
+	public int getHttpStatusCode() {
+		return httpStatusCode;
+	}
+
+	public void setHttpStatusCode(int httpStatusCode) {
+		this.httpStatusCode = httpStatusCode;
+	}
+
+	public ErrorResponseObject getErrorResponse() {
+		return errorResponse;
+	}
+
+	public void setErrorResponse(ErrorResponseObject errorResponse) {
+		this.errorResponse = errorResponse;
 	}
 
 }

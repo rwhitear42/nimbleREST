@@ -102,7 +102,7 @@ public class CreateIscsiInitiator {
 		
 		this.httpStatusCode  = request.getStatusCode();
 		
-		if( this.httpStatusCode != 201 ) {
+		if( (this.httpStatusCode != 201) && (this.httpStatusCode != 200) ) {
 			
 			System.out.println("Nimble array returns HTTP status [" + request.getStatusCode() + "]. Processing error.");
 			
