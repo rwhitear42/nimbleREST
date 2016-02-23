@@ -37,6 +37,9 @@ public class NimbleRESTConstants {
 	public static final String VOLUME_ENCRYPTION_CIPHER = "aes_256_xts";
 	public static final String NO_VOLUME_ENCRYPTION = "none";
 	
+	// Arrays
+	public static final String GET_ARRAYS_DETAIL_URI = "/v1/arrays/detail";
+	
 	// Snapshots.
 	public static final String GET_SNAPSHOT_DETAIL_URI = "/v1/snapshots/detail?vol_id="; // Need to add volume id to the URI in your code.
 	
