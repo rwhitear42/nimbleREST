@@ -53,7 +53,7 @@ public class VolumesDetailDataJsonObject {
 	private long reserve;
 	private String search_name;
 	private String serial_number;
-	private long size;
+	private long size;  						// NOTE: This value is in MB.
 	private long snap_limit;
 	private long snap_reserve;
 	private long snap_usage_compressed_bytes;
